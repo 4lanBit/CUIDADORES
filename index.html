@@ -31,12 +31,30 @@ footer .row{display:flex;gap:12px}.need{margin:0 0 10px;color:#ffd23f;text-align
 .btn{min-height:76px;padding:0 34px;border:0;border-radius:var(--r);font:inherit;font-size:1.5rem;font-weight:900;cursor:pointer;box-shadow:0 5px 0 #0004}
 .next{background:#1fa044;color:#fff;flex:1}.next:disabled{background:#ffffff1f;color:#fff9;box-shadow:none;cursor:default}
 .back{background:#ffffff2e;color:#fff;min-width:150px}
-.say{min-height:56px;font-size:1.1rem;padding:0 22px;background:#ffffff2e;color:#fff;box-shadow:none;margin-top:4px}
 .center{text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:60dvh;gap:12px}
 .big{font-size:clamp(2.2rem,7vw,4rem);font-weight:900;line-height:1.1;margin:0}
-.step{font-size:5rem;margin:0}.warn{background:#ffd23f;color:var(--ink);padding:12px 18px;border-radius:var(--r)}
+.step{font-size:5rem;margin:0}.warn{background:#ffd23f;color:var(--ink);padding:12px 18px;border-radius:var(--r);font-weight:800}
 details{background:#ffffff14;border-radius:var(--r);padding:14px 18px;margin:18px 0;text-align:left;width:100%}
 details p{margin:.5em 0;font-weight:600}details b{color:#ffd23f}
+.slots{display:grid;gap:18px;margin-top:18px}
+.slot{background:#ffffff14;border:3px solid #ffffff2e;border-radius:var(--r);padding:18px}
+.slot.ok{border-color:#25c252;background:#157a3233}
+.slot-hd{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+.slot-t{font-size:1.35rem;font-weight:900}
+.badge{padding:4px 14px;border-radius:20px;font-size:.95rem;font-weight:800;background:#ffd23f;color:var(--ink)}
+.slot.ok .badge{background:#25c252;color:#fff}
+.cam-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:560px){.cam-row{grid-template-columns:1fr}}
+.cam-btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:76px;padding:14px 18px;background:#fff;color:var(--ink);border:0;border-radius:18px;font:inherit;font-size:1.25rem;font-weight:900;cursor:pointer;box-shadow:0 4px 0 #0004}
+.cam-btn.alt{background:#e1dcff}
+.cam-btn:active{transform:translateY(2px)}
+.prev{margin-top:14px;background:#00000040;border-radius:16px;padding:12px;text-align:center}
+.prev img{max-width:100%;max-height:260px;border-radius:12px;display:block;margin:0 auto 10px;object-fit:contain;background:#fff}
+.pdf-box{padding:20px;background:#fff;color:var(--ink);border-radius:12px;margin-bottom:10px;font-weight:900}
+.del-btn{background:#d93838;color:#fff;border:0;border-radius:14px;padding:10px 18px;font:inherit;font-size:1rem;font-weight:800;cursor:pointer}
+.chk-card{margin-top:18px;background:#ffd23f22;border:3px solid #ffd23f;border-radius:var(--r);padding:16px}
+.chk-card .opt{min-height:80px;font-size:1.25rem}
+.rule-box{background:#ffffff1a;border-left:6px solid #ffd23f;padding:14px 18px;border-radius:14px;margin:14px 0;font-size:1.15rem}
 :focus-visible{outline:4px solid #ffd23f;outline-offset:3px}
 @media(prefers-reduced-motion:reduce){*{transition:none!important}}
 </style></head><body><div id="app"></div>
@@ -44,87 +62,446 @@ details p{margin:.5em 0;font-weight:600}details b{color:#ffd23f}
 const D={"cfg":{"url":"https://script.google.com/macros/s/AKfycbzNdrPc6Yy8ZiRT1HuuYW3GPwIS_CJ028fGRFwMYruoGaqZRGLpPUfU7z6Ml5dw2f5L/exec","hoja":""},"c":[{"k":"c0","t":"Nombre completo de la persona con discapacidad","tipo":"texto","col":"Nombre completo de la persona con discapacidad","ob":true,"sec":0,"n":-1},{"k":"c1","t":"Tipo de documento de identidad de la persona con discapacidad","tipo":"select_unico","op":["Cédula de ciudadanía","Tarjeta de identidad","Registro civil","Cédula de extranjería","Pasaporte","Permiso por Protección Temporal (PPT)","Permiso especial de permanencia (PEP)","Otro"],"col":"Tipo de documento de identidad de la persona con discapacidad","ob":true,"sec":0,"n":-2},{"k":"c2","t":"Numero de identificación de la persona con discapacidad","tipo":"texto","col":"Numero de identificación de la persona con discapacidad","ob":true,"sec":0,"n":-3},{"k":"c3","t":"Nombre completo de la persona cuidadora","tipo":"texto","col":"Nombre completo de la persona cuidadora","ob":true,"sec":0,"n":-4},{"k":"c4","t":"Tipo de documento de identidad de la persona cuidadora","tipo":"select_unico","op":["Cédula de ciudadanía","Tarjeta de identidad","Registro civil","Cédula de extranjería","Pasaporte","Permiso por Protección Temporal (PPT)","Permiso especial de permanencia (PEP)","Otro"],"col":"Tipo de documento de identidad de la persona cuidadora","ob":true,"sec":0,"n":-5},{"k":"c5","t":"Numero de Identificación de la persona cuidadora","tipo":"texto","col":"Numero de Identificación de la persona cuidadora","ob":true,"sec":0,"n":-6},{"k":"c6","t":"Desde que fecha realizas las actividades de cuidado?","tipo":"fecha","col":"Desde que fecha realizas las actividades de cuidado?","ob":true,"sec":0,"n":-7}],"q":[{"k":"q6","n":6,"t":"6. ¿Cuál es su sexo?","tipo":"select_unico","ob":true,"op":["Hombre","Mujer","Indeterminado o Intersexual"],"col":"6. ¿Cuál es su sexo?","sec":1},{"k":"q7","n":7,"t":"7. ¿Cuál es su estado civil ?","tipo":"select_unico","ob":true,"op":["Casado","Divorciado","Soltero","Unión Marital de Hecho","Viudo"],"col":"7. ¿Cuál es su estado civil ?","sec":1},{"k":"q8","n":8,"t":"8. ¿Cuál es su país de nacimiento?","tipo":"select_unico","ob":true,"op":["AFGANISTÁN","ALBANIA","ANTÁRTIDA","ARGELIA","SAMOA AMERICANA","ANDORRA","ANGOLA","ANTIGUA Y BARBUDA","AZERBAIYÁN","ARGENTINA","AUSTRALIA","AUSTRIA","BAHAMAS","BARÉIN","BANGLADÉS","ARMENIA","BARBADOS","BÉLGICA","BERMUDA","BUTÁN","BOLIVIA","BOSNIA-HERZEGOVINA","BOTSUANA","ISLA BOUVET","BRAZIL","BELICE","TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO","ISLAS SOLOMON","ISLAS VÍRGENES BRITÁNICAS","BRUNÉI","BULGARIA","MYANMAR (FORMER BURMA)","BURUNDI","BIELORRUSIA","CAMBOYA","CAMERÚN","CANADÁ","CABO VERDE","ISLAS CAIMÁN","REPÚBLICA CENTROAFRICANA","SRI LANKA","CHAD","CHILE","CHINA","TAIWAN","ISLA DE NAVIDAD","ISLAS COCOS","COLOMBIA","COMORAS","MAYOTTE","CONGO","REPÚBLICA DEMOCRÁTICA DEL CONGO","ISLAS COOK","COSTA RICA","CROACIA","CUBA","CHIPRE","REPÚBLICA CHECA","BENIN","DINAMARCA","DOMINICA","REPÚBLICA DOMINICANA","ECUADOR","EL SALVADOR","GUINEA ECUATORIAL","ETIOPIA","ERITREA","ESTONIA","ISLAS FEROE","ISLAS MALVINAS","ISLAS GEORGIAS DEL SUR Y SANDWICH DEL SUR","FIYI","FINLANDIA","ALAND","FRANCIA","GUAYANA FRANCESA","POLINESIA FRANCESA","TIERRAS AUSTRALES Y ANTÁRTICAS FRANCESAS","YIBUTI","GABON","GEORGIA","GAMBIA","PALESTINA","ALEMANIA","GHANA","GIBRALTAR","KIRIBATI","GRECIA","GROENLANDIA","GRANADA","GUADALUOE","GUAM","GUATEMALA","GUINEA","GUYANA","HAITI","ISLA HEARD Y MCDONALD","SANTA SEDE","HONDURAS","HONG KONG","HUNGRÍA","ISLANDIA","INDIA","INDONESIA","IRÁN","IRAQ","IRLANDA","ISRAEL","ITALIA","COSTA DE MARFIL","JAMAICA","JAPÓN","KAZAJISTÁN","JORDANIA","KENYA","COREA DEL NORTE","COREA DEL SUR","KUWAIT","KIRGUISTÁN","LAOS","LÍBANO","LESOTO","LETONIA","LIBERIA","LIBIA","LIECHTENSTEIN","LITUANIA","LUXEMBURGO","MACAO","MADAGASCAR","MALAUI","MALASIA","MALDIVAS","MALI","MALTA","MARTINICA","MAURITANIA","MAURICIO","MÉXICO","MÓNACO","MONGOLIA","MOLDAVIA","MONTENEGRO","MONTSERRAT","MARRUECOS","MOZAMBIQUE","OMÁN","NAMIBIA","NAURU","NEPAL","PAÍSES BAJOS","CURAZAO","ARUBA","SAN MARTÍN (parte holandesa)","BONAIRE, SAN EUSTAQUIO Y SABA","NUEVA CALEDONIA","VANUATU","NUEVA ZELANDA","NICARAGUA","NIGER","NIGERIA","NIUE","ISLA NORFOLK","NORUEGA","ISLAS MARIANAS DEL NORTE","ISLAS ULTRAMARINAS MENORES DE ESTADOS UNIDOS","MICRONESIA","ISLAS MARSHALL","PALAOS","PAQUISTAN","PANAMÁ","PAPUA NUEVA GUINEA","PARAGUAY","PERÚ","FILIPINAS","PITCAIRN","POLONIA","PORTUGAL","GUINEA-BISÁU","TIMOR ORIENTAL","PUERTO RICO","CATAR","REUNION","RUMANIA","RUSIA","RUANDA","SAN BARTOLOMÉ","SANTA HELENA, ASCENSIÓN Y TRISTÁN DE ACUÑA","SAN CRISTÓBAL Y NIEVES","ANGUILA","SANTA LUCIA","SAN MARTÍN (parte francesa)","SAN PEDRO Y MIQUELON","SAN VICENTE Y LAS GRANADINAS","SAN MARINO","SANTO TOME Y PRINCIPE","ARABIA SAUDITA","SENEGAL","SERBIA","SEYCHELLES","SIERRA LEONA","SINGAPUR","ESLOVAQUIA","VIETNAM","ESLOVENIA","SOMALIA","SUDÁFRICA","ZIMBABUE","ESPAÑA","SUDÁN DEL SUR","SUDÁN","SAHARA OCCIDENTAL","SURINAM","SVALBARD Y JAN MAYEN","SUAZILANDIA","SUECIA","SUIZA","SIRIA","TAYIKISTÁN","TAILANDIA","TOGO","TOKELAU","TONGA","TRINIDAD Y TOBAGO","EMIRATOS ÁRABES UNIDOS","TÚNEZ","TURQUÍA","TURKMENISTAN","ISLAS TURCAS Y CAICOS","TUVALU","UGANDA","UCRANIA","MACEDONIA","EGIPTO","REINO UNIDO","GUERNSEY","JERSEY","ISLA DE MAN","TANZANIA","ESTADOS UNIDOS","ISLAS VÍRGENES DE LOS ESTADOS UNIDOS","BURKINA FASO","URUGUAY","UZBEKISTAN","VENEZUELA","WALLIS Y FUTUNA","SAMOA","YEMEN","ZAMBIA"],"col":"8. ¿Cuál es su país de nacimiento?","sec":1},{"k":"q9","n":9,"t":"9. ¿Cuál es su nacionalidad?","tipo":"select_unico","ob":true,"op":["AFGANISTÁN","ALBANIA","ANTÁRTIDA","ARGELIA","SAMOA AMERICANA","ANDORRA","ANGOLA","ANTIGUA Y BARBUDA","AZERBAIYÁN","ARGENTINA","AUSTRALIA","AUSTRIA","BAHAMAS","BARÉIN","BANGLADÉS","ARMENIA","BARBADOS","BÉLGICA","BERMUDA","BUTÁN","BOLIVIA","BOSNIA-HERZEGOVINA","BOTSUANA","ISLA BOUVET","BRAZIL","BELICE","TERRITORIO BRITÁNICO DEL OCÉANO ÍNDICO","ISLAS SOLOMON","ISLAS VÍRGENES BRITÁNICAS","BRUNÉI","BULGARIA","MYANMAR (FORMER BURMA)","BURUNDI","BIELORRUSIA","CAMBOYA","CAMERÚN","CANADÁ","CABO VERDE","ISLAS CAIMÁN","REPÚBLICA CENTROAFRICANA","SRI LANKA","CHAD","CHILE","CHINA","TAIWAN","ISLA DE NAVIDAD","ISLAS COCOS","COLOMBIA","COMORAS","MAYOTTE","CONGO","REPÚBLICA DEMOCRÁTICA DEL CONGO","ISLAS COOK","COSTA RICA","CROACIA","CUBA","CHIPRE","REPÚBLICA CHECA","BENIN","DINAMARCA","DOMINICA","REPÚBLICA DOMINICANA","ECUADOR","EL SALVADOR","GUINEA ECUATORIAL","ETIOPIA","ERITREA","ESTONIA","ISLAS FEROE","ISLAS MALVINAS","ISLAS GEORGIAS DEL SUR Y SANDWICH DEL SUR","FIYI","FINLANDIA","ALAND","FRANCIA","GUAYANA FRANCESA","POLINESIA FRANCESA","TIERRAS AUSTRALES Y ANTÁRTICAS FRANCESAS","YIBUTI","GABON","GEORGIA","GAMBIA","PALESTINA","ALEMANIA","GHANA","GIBRALTAR","KIRIBATI","GRECIA","GROENLANDIA","GRANADA","GUADALUOE","GUAM","GUATEMALA","GUINEA","GUYANA","HAITI","ISLA HEARD Y MCDONALD","SANTA SEDE","HONDURAS","HONG KONG","HUNGRÍA","ISLANDIA","INDIA","INDONESIA","IRÁN","IRAQ","IRLANDA","ISRAEL","ITALIA","COSTA DE MARFIL","JAMAICA","JAPÓN","KAZAJISTÁN","JORDANIA","KENYA","COREA DEL NORTE","COREA DEL SUR","KUWAIT","KIRGUISTÁN","LAOS","LÍBANO","LESOTO","LETONIA","LIBERIA","LIBIA","LIECHTENSTEIN","LITUANIA","LUXEMBURGO","MACAO","MADAGASCAR","MALAUI","MALASIA","MALDIVAS","MALI","MALTA","MARTINICA","MAURITANIA","MAURICIO","MÉXICO","MÓNACO","MONGOLIA","MOLDAVIA","MONTENEGRO","MONTSERRAT","MARRUECOS","MOZAMBIQUE","OMÁN","NAMIBIA","NAURU","NEPAL","PAÍSES BAJOS","CURAZAO","ARUBA","SAN MARTÍN (parte holandesa)","BONAIRE, SAN EUSTAQUIO Y SABA","NUEVA CALEDONIA","VANUATU","NUEVA ZELANDA","NICARAGUA","NIGER","NIGERIA","NIUE","ISLA NORFOLK","NORUEGA","ISLAS MARIANAS DEL NORTE","ISLAS ULTRAMARINAS MENORES DE ESTADOS UNIDOS","MICRONESIA","ISLAS MARSHALL","PALAOS","PAQUISTAN","PANAMÁ","PAPUA NUEVA GUINEA","PARAGUAY","PERÚ","FILIPINAS","PITCAIRN","POLONIA","PORTUGAL","GUINEA-BISÁU","TIMOR ORIENTAL","PUERTO RICO","CATAR","REUNION","RUMANIA","RUSIA","RUANDA","SAN BARTOLOMÉ","SANTA HELENA, ASCENSIÓN Y TRISTÁN DE ACUÑA","SAN CRISTÓBAL Y NIEVES","ANGUILA","SANTA LUCIA","SAN MARTÍN (parte francesa)","SAN PEDRO Y MIQUELON","SAN VICENTE Y LAS GRANADINAS","SAN MARINO","SANTO TOME Y PRINCIPE","ARABIA SAUDITA","SENEGAL","SERBIA","SEYCHELLES","SIERRA LEONA","SINGAPUR","ESLOVAQUIA","VIETNAM","ESLOVENIA","SOMALIA","SUDÁFRICA","ZIMBABUE","ESPAÑA","SUDÁN DEL SUR","SUDÁN","SAHARA OCCIDENTAL","SURINAM","SVALBARD Y JAN MAYEN","SUAZILANDIA","SUECIA","SUIZA","SIRIA","TAYIKISTÁN","TAILANDIA","TOGO","TOKELAU","TONGA","TRINIDAD Y TOBAGO","EMIRATOS ÁRABES UNIDOS","TÚNEZ","TURQUÍA","TURKMENISTAN","ISLAS TURCAS Y CAICOS","TUVALU","UGANDA","UCRANIA","MACEDONIA","EGIPTO","REINO UNIDO","GUERNSEY","JERSEY","ISLA DE MAN","TANZANIA","ESTADOS UNIDOS","ISLAS VÍRGENES DE LOS ESTADOS UNIDOS","BURKINA FASO","URUGUAY","UZBEKISTAN","VENEZUELA","WALLIS Y FUTUNA","SAMOA","YEMEN","ZAMBIA"],"col":"Cual es su nacionalidad?","sec":1},{"k":"q10","n":10,"t":"10. De acuerdo con su Identidad de género, ¿Cómo se identifica usted?","tipo":"select_unico","ob":true,"op":["Masculino","Femenino","Transgénero","Otro","Cisgénero","No responde","No aplica (menores de 14 años)"],"col":"10. De acuerdo con su Identidad de género, ¿Cómo se identifica usted?","sec":2},{"k":"q11","n":11,"t":"11. De acuerdo con su orientación sexual. ¿Cómo se identifica usted?","tipo":"select_unico","ob":true,"op":["Heterosexual","Homosexual","Bisexual","Asexual","Pansexual","No responde","No aplica (menores de 14 años)"],"col":"11. De acuerdo con su orientación sexual. ¿Cómo se identifica usted?","sec":2},{"k":"q12","n":12,"t":"12. De acuerdo con sus costumbres y tradiciones. ¿Cómo se identifica usted?","tipo":"select_unico","ob":true,"op":["Indígena","Rrom - Gitana","Raizal","Palenquera","Negra","Afrocolombiana","Ninguno","No responde"],"col":"12.De acuerdo con sus costumbres y tradiciones. ¿Cómo se identifica usted?","sec":2},{"k":"q13","n":13,"t":"13. ¿Cuál es su departamento de su residencia?","tipo":"select_unico","ob":true,"op":["ANTIOQUIA","ATLÁNTICO","BOGOTÁ, D.C.","BOLÍVAR","BOYACÁ","CALDAS","CAQUETÁ","CAUCA","CESAR","CÓRDOBA","CUNDINAMARCA","CHOCÓ","HUILA","LA GUAJIRA","MAGDALENA","META","NARIÑO","NORTE DE SANTANDER","QUINDIO","RISARALDA","SANTANDER","SUCRE","TOLIMA","VALLE DEL CAUCA","ARAUCA","CASANARE","PUTUMAYO","ARCHIPIÉLAGO DE SAN ANDRÉS, PROVIDENCIA Y SANTA CATALINA","AMAZONAS","GUAINÍA","GUAVIARE","VAUPÉS","VICHADA"],"col":"13. ¿Cuál es su departamento de su residencia?\n","sec":3},{"k":"q14","n":14,"t":"14. ¿Cuál es su municipio de su residencia?","tipo":"select_unico","ob":true,"op":["ABEJORRAL","ABRIAQUÍ","ALEJANDRÍA","AMAGÁ","AMALFI","ANDES","ANGELÓPOLIS","ANGOSTURA","ANORÍ","ANZÁ","APARTADÓ","ARBOLETES","ARGELIA","ARMENIA","BARBOSA","BELLO","BELMIRA","BETANIA","BETULIA","BRICEÑO","BURITICÁ","CÁCERES","CAICEDO","CALDAS","CAMPAMENTO","CAÑASGORDAS","CARACOLÍ","CARAMANTA","CAREPA","CAROLINA","CAUCASIA","CHIGORODÓ","CISNEROS","CIUDAD BOLÍVAR","COCORNÁ","CONCEPCIÓN","CONCORDIA","COPACABANA","DABEIBA","DONMATÍAS","EBÉJICO","EL BAGRE","EL CARMEN DE VIBORAL","EL SANTUARIO","ENTRERRÍOS","ENVIGADO","FREDONIA","FRONTINO","GIRALDO","GIRARDOTA","GÓMEZ PLATA","GRANADA","GUADALUPE","GUARNE","GUATAPÉ","HELICONIA","HISPANIA","ITAGÜÍ","ITUANGO","JARDÍN","JERICÓ","LA CEJA","LA ESTRELLA","LA PINTADA","LA UNIÓN","LIBORINA","MACEO","MARINILLA","MEDELLÍN","MONTEBELLO","MURINDÓ","MUTATÁ","NARIÑO","NECHÍ","NECOCLÍ","OLAYA","PEÑOL","PEQUE","PUEBLORRICO","PUERTO BERRÍO","PUERTO NARE","PUERTO TRIUNFO","REMEDIOS","RETIRO","RIONEGRO","SABANALARGA","SABANETA","SALGAR","SAN ANDRÉS DE CUERQUÍA","SAN CARLOS","SAN FRANCISCO","SAN JERÓNIMO","SAN JOSÉ DE LA MONTAÑA","SAN JUAN DE URABÁ","SAN LUIS","SAN PEDRO DE LOS MILAGROS","SAN PEDRO DE URABÁ","SAN RAFAEL","SAN ROQUE","SAN VICENTE FERRER","SANTA BÁRBARA","SANTA FÉ DE ANTIOQUIA","SANTA ROSA DE OSOS","SANTO DOMINGO","SEGOVIA","SONSÓN","SOPETRÁN","TÁMESIS","TARAZÁ","TARSO","TITIRIBÍ","TOLEDO","TURBO","URAMITA","URRAO","VALDIVIA","VALPARAÍSO","VEGACHÍ","VENECIA","VIGÍA DEL FUERTE","YALÍ","YARUMAL","YOLOMBÓ","YONDÓ","ZARAGOZA"],"col":"14. ¿Cuál es su municipio de su residencia?","sec":3},{"k":"q15","n":15,"t":"15. ¿Cuál es la zona de su residencia?","tipo":"select_unico","ob":true,"op":["Cabecera municipal","Centro poblado","Rural disperso"],"col":"15. ¿Cuál es la zona de su residencia?","sec":3},{"k":"q16","n":16,"t":"16. ¿Cuál es la dirección de su residencia?","tipo":"texto","ob":true,"op":[],"col":"16. ¿Cuál es la dirección de su residencia?","sec":3},{"k":"q17","n":17,"t":"17. ¿Cuál es el nombre de la localidad, barrio, vereda, caserío, comuna, corregimiento, inspección, de su residencia?","tipo":"texto","ob":true,"op":[],"col":"17. ¿Cuál es el nombre de la localidad, barrio, vereda, caserío, comuna, corregimiento, inspección, de su residencia?","sec":3},{"k":"q18","n":18,"t":"18. ¿Cuál es el estrato del lugar de su residencia?","tipo":"select_unico","ob":true,"op":["Estrato 1","Estrato 2","Estrato 3","Estrato 4","Estrato 5","Estrato 6"],"col":"18. ¿Cuál es el estrato del lugar de su residencia?","sec":3},{"k":"q19","n":19,"t":"19. ¿Cuál es el número de su contacto telefónico?","tipo":"texto","ob":true,"op":[],"col":"19. ¿Cuál es el número de su contacto telefónico?","sec":3},{"k":"q20","n":20,"t":"20. ¿Cuál es su correo electrónico?","tipo":"texto","ob":true,"op":[],"col":"20. ¿Cuál es su correo electrónico?","sec":3},{"k":"q21","n":21,"t":"21. ¿Cuál fue el último nivel educativo que completó?","tipo":"select_unico","ob":true,"op":["Ninguno","Educación inicial","Preescolar","Básica primaria","Básica secundaria","Media","Formación para el trabajo","Educación superior pregrado","Educación superior posgrado"],"col":"21. ¿Cuál fue el último nivel educativo que completó?","sec":4},{"k":"q22","n":22,"t":"22. ¿Sabe usted leer?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"22. ¿Sabe usted leer?","sec":4},{"k":"q23","n":23,"t":"23. ¿Sabe usted escribir?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"23. ¿Sabe usted escribir?","sec":4},{"k":"q24","n":24,"t":"24. ¿Actualmente asiste usted a alguna institución educativa?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"24. ¿Actualmente asiste usted a alguna institución educativa?","sec":4},{"k":"q25","n":25,"t":"25. ¿Le han realizado la encuesta Sistema identificación de Potenciales Beneficiarios del Programa Sociales - SISBEN?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"25. ¿Le han realizado la encuesta Sistema identificación de Potenciales Beneficiarios del Programa Sociales - SISBEN?","sec":5},{"k":"q26","n":26,"t":"26. ¿En cuál grupo y subgrupo se encuentra clasificado su hogar bajo metodología Sisbén IV?","tipo":"select_unico","ob":true,"op":["Pobreza extrema","Pobreza moderada","Vulnerabilidad","No vulnerabilidad"],"col":"26. ¿En cuál grupo y subgrupo se encuentra clasificado su hogar bajo metodología Sisbén IV?","sec":5},{"k":"q27","n":27,"t":"27. ¿Cuántas personas conforman su hogar, incluyéndose usted?","tipo":"numero","ob":true,"op":[],"col":"27. ¿Cuántas personas conforman su hogar, incluyéndose usted?","sec":5},{"k":"q28","n":28,"t":"28. ¿Es usted el jefe del hogar?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"28. ¿Es usted el jefe del hogar?","sec":5},{"k":"q29","n":29,"t":"29. ¿Cuál es el parentesco que usted presenta en su hogar?","tipo":"select_unico","ob":true,"op":["Padre o Madre","Hijo (a)","Abuelo(a)","Hermano (a)","Esposo(a) / o compañero(a)","Otros familiares","No existe parentesco"],"col":"29. ¿Cuál es el parentesco que usted presenta en su hogar? (EN CASO DE NO SER EL JEFE DEL HOGAR)","sec":5},{"k":"q30","n":30,"t":"30. ¿Es usted víctima del conflicto armado interno?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"30. ¿Es usted víctima del conflicto armado interno?","sec":6},{"k":"q31","n":31,"t":"31. ¿Se autorreconoce usted como una persona con discapacidad?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"31. ¿Se autorreconoce usted como una persona con discapacidad?","sec":6},{"k":"q35","n":35,"t":"35. ¿Ha asisitido usted a servicios de salud en el último año?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"35. ¿Ha asisitido usted a servicios de salud en el último año? (12 MESES)","sec":7},{"k":"q37","n":37,"t":"37. ¿Cuáles son las causas por las que usted no ha asistido a servicios de salud en el último año?","tipo":"checkbox","ob":true,"op":["Demoras en la asignación de citas médicas de apoyo diagnóstico y entrega de medicamentos.","No cuenta con tiempo para asistir a controles médicos","No cuenta con recursos económicos para el desplazamiento","El lugar donde lo atiende queda lejos de su domicilio","No se puede desplazar por dificultades de salud","Otra"],"col":"37. ¿Cuáles son las causas por las que usted no ha asistido a servicios de salud en el último año?","sec":7},{"k":"q38","n":38,"t":"38. ¿Ha recibido formación, capacitación o entrenamiento para ejercer actividades de cuidado o asistencia personal?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"38. ¿Ha recibido formación, capacitación o entrenamiento para ejercer actividades de cuidado o asistencia personal?","sec":8},{"k":"q39","n":39,"t":"39. ¿En qué actividades de cuidado o asistencia personal ha recibido formación , capacitación o entrenamiento?","tipo":"checkbox","ob":true,"op":["Apoyo en actividades para el vestuario de la persona que requiere cuidado o apoyo.","Apoyo en actividades para la alimentación de la persona que requiere cuidado o apoyo.","Apoyo en actividades para la movilidad funcional de la persona que requiere cuidado o apoyo.","Apoyo en actividades para el cuidado de las ayudas técnicas personales, cualificación / uso de ayudas técnicas para de la persona que requiere cuidado o apoyo.","Apoyo en actividades para la higiene personal, del inodoro y aseo. Baño / ducha para de la persona que requiere cuidado o apoyo.","Apoyo en actividades para la higiene y limpieza de los espacios que habita la persona que requiere cuidado o apoyo","Actividades de respiro para cuidadores ¿Cómo disminuir el trabajo de cuidado que realiza la persona cuidadora?","Consideraciones especiales en el cuidado de personas mayores con discapacidad (aspectos éticos en el cuidado a la persona mayor, autonomía y dignidad)","Consideraciones especiales en el cuidado de las personas con discapacidad (aspectos éticos en el cuidado a la persona con discapacidad, autonomía y dignidad)","Prevención de caídas, cuidados de la piel, adherencia al tratamiento, importancia de la actividad física en el persona mayor con discapacidad, salud oral.","Servicios de cuidados paliativos básicos.","Suministro de medicamentos","Principios básicos de evaluación y manejo del dolor.","Principios básicos de evaluación y manejo de otros síntomas físicos comunes (disnea, náuseas, falta de apetito y trastornos del estado de ánimo).","Apoyo psicosocial y espiritual dentro de la práctica de los cuidados.","Técnicas de primeros auxilios","Uso tiempo libre","Ninguno de las anteriores","Otros"],"col":"39. ¿En qué actividades de cuidado o asistencia personal ha recibido formación , capacitación o entrenamiento?","sec":8},{"k":"q40","n":40,"t":"40. ¿Es usted o su hogar beneficiarios de programas o proyectos sociales?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"40. ¿Es usted o su hogar beneficiarios de programas o proyectos sociales?","sec":9},{"k":"q41","n":41,"t":"41. ¿En cuál de los programas o proyecto sociales es usted o su hogar beneficiario ?","tipo":"checkbox","ob":true,"op":["Renta ciudadana","Colombia mayor","Compensación de IVA","Plan de alimentación escolar","Renta joven","Devolución del IVA","Otro"],"col":"41. ¿En cuál de los programas o proyecto sociales es usted o su hogar beneficiario ?","sec":9},{"k":"q42","n":42,"t":"42. ¿Cuál es la forma de tenencia de vivienda de su hogar ?","tipo":"select_unico","ob":true,"op":["En arriendo o subarriendo","Propia, la están pagando","Propia, totalmente pagada","Con permiso del propietario","Posesión sin título, ocupante de hecho"],"col":"42. ¿Cuál es la forma de tenencia de vivienda de su hogar ?","sec":10},{"k":"q43","n":43,"t":"43. ¿En qué tipo de vivienda usted reside?","tipo":"select_unico","ob":true,"op":["Casa","Apartamento","Cuarto","Vivienda tradicional indígena","Pagadiario","Calle como lugar de habitación","Otro tipo de vivienda"],"col":"43. ¿En qué tipo de vivienda usted reside?","sec":10},{"k":"q44","n":44,"t":"44. ¿Cuáles servicios públicos tiene su vivienda?","tipo":"checkbox","ob":true,"op":["Energía eléctrica","Alcantarillado","Gas natural domiciliario","Recolección de basuras","Acueducto","Internet","Ninguno"],"col":"44. ¿Cuáles servicios públicos tiene su vivienda?","sec":10},{"k":"q45","n":45,"t":"45. ¿Cúal es su parentesco con la persona que requiere cuidado o asistencia personal?","tipo":"select_unico","ob":true,"op":["Padre o Madre","Hijo (a)","Abuelo(a)","Hermano (a)","Esposo(a) / o compañero(a)","Otros familiares","No existe parentesco"],"col":"45. ¿Cúal es su parentesco con la persona que requiere cuidado o asistencia personal?","sec":11},{"k":"q46","n":46,"t":"46. Si usted no tiene ningún parentesco: ¿Cuál es su relación con la persona que cuida?","tipo":"select_unico","ob":true,"op":["Amigo (a)","Vecino (a)","Personal contratado para labores de cuidado o asistencia personal","Otro"],"col":"46. Si usted no tiene ningún parentesco: ¿Cuál es su relación con la persona que cuida?","sec":11},{"k":"q48","n":48,"t":"48. ¿Qué tipo de cuidado o asistencia personal requiere la persona con discapacidad ?","tipo":"checkbox","ob":true,"op":["Apoyo en actividades para el vestuario","Apoyo en actividades para la alimentación que incluye la compra y adquisición de los alimentos","Apoyo en actividades para la movilidad funcional (incluye movilidad en transporte público)","Apoyo en actividades para el cuidado de las ayudas técnicas personales, entrenamiento / uso de ayudas técnicas","Apoyo en actividades para la higiene personal y aseo; baño / ducha.","Apoyo en actividades para el mantenimiento e higiene de los espacios que habita la persona con discapacidad","Apoyo en actividades de estudio.","Apoyo en actividades de trabajo.","Apoyo en actividades financieras o bancarias","Prevención de caídas y cuidados de la piel","Apoyo en la adherencia al tratamiento médico y farmacológico","Acompañamiento a la asistencia de citas médicas, odontológicas y terapéuticas","Apoyo psicosocial y espiritual dentro de la práctica de los cuidados.","Uso del tiempo libre","Apoyo en trámites de salud: gestión de citas médicas y terapéuticas, autorización de órdenes médicas, reclamar o comprar medicamentos.","Apoyo en el cuidado de la salud sexual y reproductiva.","Apoyo en actividades para la comunicación","Otra"],"col":"48. ¿Qué tipo de cuidado o asistencia personal requiere la persona con discapacidad ?","sec":11},{"k":"q49","n":49,"t":"49. ¿Cuántas horas diarias dedica al cuidado o asistencia de la persona con discapacidad ?","tipo":"select_unico","ob":true,"op":["Entre 1 y 2 horas","Entre 2 y 4 horas","Entre 4 y 6 horas","Más de 6 horas"],"col":"49. ¿Cuántas horas diarias dedica al cuidado o asistencia de la persona con discapacidad ?","sec":11},{"k":"q50","n":50,"t":"50. ¿Cuánto tiempo lleva desempeñando la tarea de cuidado o asistencia personal de la persona con discapacidad?","tipo":"select_unico","ob":true,"op":["Menos de 1 año","Entre 1 y 2 años","Entre 2 y 3 años","Entre 3 y 4 años","Entre 5 y 10 años","Más de 10 años"],"col":"50. ¿Cuánto tiempo lleva desempeñando la tarea de cuidado o asistencia personal de la persona con discapacidad?","sec":11},{"k":"q51","n":51,"t":"51. ¿Comparte su labor de cuidado o asistencia personal con otra persona?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"51. ¿Comparte su labor de cuidado o asistencia personal con otra persona?","sec":11},{"k":"q52","n":52,"t":"52. ¿Cuál es el número de personas con las que comparte la labor de cuidado o asistencia personal de la persona con discapacidad?","tipo":"select_unico","ob":true,"op":["Una","Dos","Tres","Más de tres"],"col":"52. ¿Cuál es el número de personas con las que comparte la labor de cuidado o asistencia personal de la persona con discapacidad?","sec":11},{"k":"q53","n":53,"t":"53. ¿Cuál es el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","tipo":"checkbox","ob":true,"op":["En su hogar","En el hogar de la persona que cuida o asiste","En la institución de estudio de la persona que cuida o asiste","En el lugar de trabajo de la persona que cuida o asiste","En una institución pública","En una institución privada","Otra"],"col":"53. ¿Cuál es el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","sec":11},{"k":"q54","n":54,"t":"54. ¿Presenta barreras en el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"54. ¿Presenta barreras en el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","sec":11},{"k":"q55","n":55,"t":"55. ¿Qué barreras presenta el lugar donde usted realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","tipo":"checkbox","ob":true,"op":["Presencia de escaleras / falta de rampa","Desniveles en pisos","Puertas estrechas","Pasillos angostos","Falta de señalización visual o sonora","Iluminación inadecuada","Falta de baños / baños no adecuados para el cuidado de personas con discapacidad","Ausencia de barras de apoyo para los desplazamientos","Otra"],"col":"55. ¿Qué barreras presenta el lugar donde usted realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","sec":11},{"k":"q56","n":56,"t":"56. ¿Ha efectuado adecuaciones del lugar donde realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"56. ¿Ha efectuado adecuaciones del lugar donde realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","sec":11},{"k":"q57","n":57,"t":"57. ¿Qué clase de adecuaciones ha efectuado en el lugar donde realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","tipo":"checkbox","ob":true,"op":["Accesibilidad al inmueble y a sus zonas comunes (ampliación de espacios, eliminación de desniveles, construcción de rampas)","Adaptaciones en la vivienda para facilitar desplazamientos y traslados.","Adaptaciones para facilitar comunicación","Adaptaciones para prevención de accidentes o autolesiones.","Adaptaciones en la seguridad de la vivienda (evitar huida de la persona que requiere cuidado o asistencia)"],"col":"57. ¿Qué clase de adecuaciones ha efectuado en el lugar donde realiza las labores o actividades de cuidado o asistencia personal de la persona con discapacidad?","sec":11},{"k":"q58","n":58,"t":"58. ¿De dónde provino los recursos para las adecuaciones realizadas en en el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","tipo":"checkbox","ob":true,"op":["Subsidios del estado","Recursos propios de la familia","Recursos propios del cuidador o asistente personal","Donaciones de entidades privadas","Otros"],"col":"58. ¿De dónde provino los recursos para las adecuaciones realizadas en en el lugar donde realiza las labores o actividades de cuidado o asistencia personal?","sec":11},{"k":"q59","n":59,"t":"59. ¿Pertenece usted a algún grupo comunitario o agremiación que realiza labores de cuidado o asistencia personal?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"59. ¿Pertenece usted a algún grupo comunitario o agremiación que realiza labores de cuidado o asistencia personal?","sec":11},{"k":"q60","n":60,"t":"60. ¿Cuenta usted con otras redes de apoyo para el cuidado o asistencia de la persona con discapacidad?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"60. ¿Cuenta usted con otras redes de apoyo para el cuidado o asistencia de la persona con discapacidad?","sec":11},{"k":"q61","n":61,"t":"61. ¿Cuáles son las otras redes de apoyo con las que usted cuenta para el cuidado o asistencia personal?","tipo":"checkbox","ob":true,"op":["De familiares","De comunidades o grupos religiosos","De redes comunitarias o sociales","Instituciones","De vecinos y amigos","Otros"],"col":"61. ¿Cuáles son las otras redes de apoyo con las que usted cuenta para el cuidado o asistencia personal?","sec":11},{"k":"q62","n":62,"t":"62. ¿Considera usted si hay efectos positivos de la labor de cuidado o asistencia personal que realiza?","tipo":"select_unico","ob":true,"op":["SI","NO"],"col":"62. ¿Considera usted si hay efectos positivos de la labor de cuidado o asistencia personal que realiza?","sec":12},{"k":"q63","n":63,"t":"63. ¿Cuáles son los efectos positivos de la labor de cuidado o asistencia personal que usted realiza?","tipo":"checkbox","ob":true,"op":["Satisfacción por ayudar a otro","Beneficios en la salud (emocionales y físicos)","Beneficios en la economía","Beneficios en las relaciones sociales","Otros"],"col":"63. ¿Cuáles son los efectos positivos de la labor de cuidado o asistencia personal que usted realiza?","sec":12},{"k":"q64","n":64,"t":"64. ¿Considera usted que hay consecuencias negativas de la labor que realiza de cuidado o asistencia personal?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"64. ¿Considera usted que hay consecuencias negativas de la labor que realiza de cuidado o asistencia personal?","sec":12},{"k":"q65","n":65,"t":"65. ¿Cuáles son las consecuencias negativas de la labor de cuidado o asistencia personal que usted realiza?","tipo":"checkbox","ob":true,"op":["Sobrecarga en tareas domésticas","Dificultades para el desarrollo de su propio proyecto de vida","Aislamiento","Problemas económicos","Abandono del trabajo, reducción de las horas de trabajo pagado","Sentimientos o sensaciones de no poder afrontar los retos que se presentan en la vida diaria","Trastornos del estado de ánimo, estrés, frustración, alteraciones del sueño, depresión","Cansancio físico, deterioro de la salud","Pérdida de autonomía, reducción de la participación social","Falta de tiempo para el autocuidado","Otros"],"col":"65. ¿Cuáles son las consecuencias negativas de la labor de cuidado o asistencia personal que usted realiza?","sec":12},{"k":"q66","n":66,"t":"66. ¿Cuántas horas al día usted dedica a actividades de autocuidado, recreación, hobbies, ocio y tiempo libre?","tipo":"select_unico","ob":true,"op":["Menos una hora diaria","De una a dos horas diarias","Más de dos horas diarias"],"col":"66. ¿Cuántas horas al día usted dedica a actividades de autocuidado, recreación, hobbies, ocio y tiempo libre?","sec":12},{"k":"q67","n":67,"t":"67. ¿Se encuentra usted trabajando actualmente o desarrollando alguna actividad diferente a la labor de cuidado o asistencia personal que le genere ingresos económicos?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"67. ¿Se encuentra usted trabajando actualmente o desarrollando alguna actividad diferente a la labor de cuidado o asistencia personal que le genere ingresos económicos?","sec":13},{"k":"q68","n":68,"t":"68. ¿Cuántas horas diarias dedica a esa actividad?","tipo":"select_unico","ob":true,"op":["Entre 1 y 2 horas","Entre 2 y 4 horas","Entre 4 y 6 horas","Más de 6 horas"],"col":"68. ¿Cuántas horas diarias dedica a esa actividad?","sec":13},{"k":"q69","n":69,"t":"69. ¿Qué rango de salario mínimo legal mensual vigente - SMLMV, se le ha asignado en la actividad diferente a la labor de cuidado o asistencia personal?","tipo":"select_unico","ob":true,"op":["Sin ingreso","Menos de 1","De 1 a 2","Más de 2 y menos de 4","4 o más","No informa"],"col":"69. ¿Qué rango de salario mínimo legal mensual vigente - SMLMV, se le ha asignado en la actividad diferente a la labor de cuidado o asistencia personal?","sec":13},{"k":"q70","n":70,"t":"70. ¿Recibe usted alguna remuneración por la labor de cuidado o asistencia personal de la persona con discapacidad?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"70. ¿Recibe usted alguna remuneración por la labor de cuidado o asistencia personal de la persona con discapacidad?","sec":13},{"k":"q71","n":71,"t":"71. ¿Cuál es el rango de salario mínimo legal mensual vigente - SMLMV que se le ha asignado en su labor de cuidado o asistencia personal de la persona con discapacidad?","tipo":"select_unico","ob":true,"op":["Menos de 1","De 1 a 2","Más de 2 y menos de 4","4 o más","No informa"],"col":"71. ¿Cuál es el rango de salario mínimo legal mensual vigente - SMLMV que se le ha asignado en su labor de cuidado o asistencia personal de la persona con discapacidad?","sec":13},{"k":"q72","n":72,"t":"72. ¿Por quién ha sido reconocido el salario o remuneración que se le ha asignado en su labor de cuidado o asistencia personal ?","tipo":"checkbox","ob":true,"op":["Familia de la persona que requiere cuidado o apoyo","Por entidades sin ánimo de lucro","Por Institución Pública","Por Institución Privada","Otra"],"col":"72. ¿Por quién ha sido reconocido el salario o remuneración que se le ha asignado en su labor de cuidado o asistencia personal ?","sec":13},{"k":"q73","n":73,"t":"73. ¿Está usted cotizando a un fondo de pensiones?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"73. ¿Está usted cotizando a un fondo de pensiones?","sec":13},{"k":"q74","n":74,"t":"74. ¿Está usted cotizando a un fondo de cesantías?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"74. ¿Está usted cotizando a un fondo de cesantías?","sec":13},{"k":"q75","n":75,"t":"75. ¿Está usted afiliado a riesgos laborales?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"75. ¿Está usted afiliado a riesgos laborales?","sec":13},{"k":"q76","n":76,"t":"76. ¿Cuenta usted con un emprendimiento o la posibilidad de generar ingresos desde casa, alternando la labor de cuidado o asistencia personal de la persona con discapacidad?","tipo":"radio","ob":true,"op":["Sí","No"],"col":"76. ¿Cuenta usted con un emprendimiento o la posibilidad de generar ingresos desde casa, alternando la labor de cuidado o asistencia personal de la persona con discapacidad?","sec":13},{"k":"q77","n":77,"t":"77. ¿Qué tipo de emprendimiento?","tipo":"select_unico","ob":true,"op":["Emprendimiento de alto impacto","Emprendimiento social","Emprendimiento de personas en condición de vulnerabilidad","Intraemprendimientos o emprendimientos corporativos","Emprendimientos de alto nivel tecnológico","Emprendimientos culturales","Emprendimientos verdes","Emprendimientos solidarios","Emprendimientos de beneficios e interés colectivo","Emprendimiento o empresa mujer"],"col":"77. ¿Qué tipo de emprendimiento?","sec":13}],"sec":{"1":"DATOS DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","2":"DATOS DE AUTORECONOCIMIENTO DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","3":"UBICACIÓN GEOGRÁFICA DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","4":"NIVEL DE EDUCACIÓN DEL CUIDADOR O ASISTENTE PERSONAL OK","5":"ADSCRIPCIÓN AL SISBEN DEL HOGAR DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","6":"CARACTERÍSTICAS POBLACIONALES DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","7":"SERVICIOS DE SALUD Y ACCESO DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL","8":"FORMACIÓN ESPECÍFICA EN ACTIVIDADES DE CUIDADO POR PARTE DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","9":"BENEFICIOS SOCIALES CON LOS QUE CUENTA LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","10":"CARACTERÍSTICAS DE LA VIVIENDA DEL HOGAR DE LA PERSONA CUIDADORA O ASISTENTE PERSONAL OK","11":"INFORMACIÓN SOBRE LA DINÁMICA DEL CUIDADO","12":"FACTORES PERSONALES Y DEL ENTORNO RELACIONADOS CON EL ROL DE CUIDADOR O ASISTENTE PERSONAL OK","13":"RECONOCIMIENTO DE LA ACTIVIDAD DE CUIDADO O ASISTENCIA PERSONAL OK"},"cond":{"26":[25,"Sí"],"29":[28,"No"],"37":[35,"No"],"39":[38,"Sí"],"41":[40,"Sí"],"46":[45,"No existe parentesco"],"52":[51,"Sí"],"55":[54,"Sí"],"57":[56,"Sí"],"58":[56,"Sí"],"61":[60,"Sí"],"63":[62,"SI"],"65":[64,"Sí"],"68":[67,"Sí"],"69":[67,"Sí"],"71":[70,"Sí"],"72":[70,"Sí"],"77":[76,"Sí"]}};
 const $=s=>document.querySelector(s), esc=t=>String(t).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=t=>t.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
-const Q=D.q, C=D.c, ALL=[...C,...Q], by={}, byN={}; ALL.forEach(i=>by[i.k]=i); Q.forEach(q=>byN[q.n]=q);
-const SEC=D.sec, SH=['▲','◆','●','■'], NIN=/^ningun[oa]\b/i;
-let ans={}, cur='welcome', zoom=0, sending=false;
-const secName=n=>{let t=(n===0?'Identificación y soporte legal':SEC[n]).replace(/\s+OK$/,'');t=t.toLowerCase();return t[0].toUpperCase()+t.slice(1)};
+
+const DOCS=[
+  {
+    k:'doc_pcd',
+    t:'1. Documento de identidad — Persona con discapacidad',
+    sub:'Elija cómo desea escanear la cédula o documento de identidad de la persona con discapacidad:',
+    rule:'Puede subir una fotocopia donde ya estén ambas caras o tomar foto por lado y lado.',
+    modes:['Fotocopia de la cédula por ambas caras','Foto de la cédula por lado y lado'],
+    col:'Doc - Cédula Persona con Discapacidad'
+  },
+  {
+    k:'doc_cuid',
+    t:'2. Documento de identidad — Persona cuidadora',
+    sub:'Elija cómo desea escanear la cédula o documento de identidad de la persona cuidadora:',
+    rule:'Puede subir una fotocopia donde ya estén ambas caras o tomar foto por lado y lado.',
+    modes:['Fotocopia de la cédula por ambas caras','Foto de la cédula por lado y lado'],
+    col:'Doc - Cédula Persona Cuidadora'
+  },
+  {
+    k:'doc_cert',
+    t:'3. Certificado de discapacidad',
+    sub:'Escanee el Certificado de Discapacidad por ambas caras (lado 1 y lado 2):',
+    rule:'Este documento tiene 2 caras. Capture ambos lados de forma clara y legible.',
+    fixedSlots:[{id:'frente',label:'Cara 1 (Frontal)'},{id:'reverso',label:'Cara 2 (Posterior)'}],
+    col:'Doc - Certificado de Discapacidad'
+  },
+  {
+    k:'doc_med',
+    t:'4. Servicios públicos o Sisbén (Residencia en Medellín)',
+    sub:'Seleccione el documento de soporte y escanéelo:',
+    rule:'IMPORTANTE: Verifique que la dirección que aparece en el documento sea del municipio de MEDELLÍN.',
+    modes:['Factura de servicios públicos','Ficha o certificado del Sisbén'],
+    singleSlot:{id:'soporte',label:'Documento (Servicios públicos o Sisbén)'},
+    verifyText:'Confirmo que revisé el documento y muestra residencia en MEDELLÍN',
+    col:'Doc - Servicios Públicos o Sisbén (Medellín)'
+  },
+  {
+    k:'doc_ext',
+    t:'5. Declaración extrajuicio o poder notariado',
+    sub:'Seleccione el documento legal y escanéelo:',
+    rule:'IMPORTANTE: El documento debe indicar expresamente que la persona cuidadora cuida de la persona con discapacidad.',
+    modes:['Declaración extrajuicio','Poder notariado'],
+    singleSlot:{id:'principal',label:'Página principal del documento'},
+    optionalSlot:{id:'reverso',label:'Página adicional / reverso (opcional)'},
+    verifyText:'Confirmo que el documento dice que la persona cuidadora cuida de la persona con discapacidad',
+    col:'Doc - Extrajuicio o Poder Notariado'
+  }
+];
+
+const Q=D.q, C=D.c, ALL=[...C,...Q], by={}, byN={}, docBy={};
+ALL.forEach(i=>by[i.k]=i);
+Q.forEach(q=>byN[q.n]=q);
+DOCS.forEach(d=>docBy[d.k]=d);
+
+const SEC=D.sec, NIN=/^ningun[oa]\b/i;
+let ans={}, docFiles={}, cur='welcome', zoom=0, sending=false, pendList=[];
+
+const secName=n=>{
+  if(n===0)return 'Identificación y soporte legal';
+  if(n==='docs')return 'Escaneo de documentos requeridos';
+  let t=SEC[n].replace(/\s+OK$/,'').toLowerCase();
+  return t[0].toUpperCase()+t.slice(1);
+};
 const vis=q=>{const c=D.cond[q.n];if(!c)return true;const p=byN[c[0]];return vis(p)&&ans[p.k]===c[1]};
 const clean=()=>Q.forEach(q=>{if(!vis(q)&&q.k in ans)delete ans[q.k]});
-function seq(){const s=['welcome','i0',...C.map(c=>c.k)];for(let n=1;n<=13;n++){s.push('i'+n);Q.filter(q=>q.sec===n&&vis(q)).forEach(q=>s.push(q.k))}return [...s,'review']}
-const valid=it=>{const v=ans[it.k];if(v===undefined||(Array.isArray(v)?!v.length:String(v).trim()===''))return false;if(it.n===20)return /\S+@\S+\.\S+/.test(v);if(it.n===19)return String(v).replace(/\D/g,'').length>=7;return true};
+
+function seq(){
+  const s=['welcome','i0',...C.map(c=>c.k),'idoc',...DOCS.map(d=>d.k)];
+  for(let n=1;n<=13;n++){
+    s.push('i'+n);
+    Q.filter(q=>q.sec===n&&vis(q)).forEach(q=>s.push(q.k));
+  }
+  return [...s,'review'];
+}
+
+function docSlots(d){
+  const st=ans[d.k]||{};
+  if(d.fixedSlots)return d.fixedSlots;
+  if(d.singleSlot){
+    const arr=[d.singleSlot];
+    if(d.optionalSlot)arr.push({...d.optionalSlot,opt:true});
+    return arr;
+  }
+  if(!st.mode)return [];
+  if(st.mode.includes('lado y lado'))return [{id:'frente',label:'Cara 1 — Frontal'},{id:'reverso',label:'Cara 2 — Posterior'}];
+  return [{id:'ambas',label:'Fotocopia (ambas caras en una hoja/PDF)'}];
+}
+
+function validDoc(d){
+  const st=ans[d.k]||{};
+  const files=docFiles[d.k]||{};
+  if(d.modes && !st.mode)return false;
+  const slots=docSlots(d);
+  if(!slots.length)return false;
+  for(const sl of slots){
+    if(!sl.opt && !files[sl.id])return false;
+  }
+  if(d.verifyText && !st.verified)return false;
+  return true;
+}
+
+const valid=it=>{
+  if(!it)return true;
+  if(docBy[it.k])return validDoc(it);
+  const v=ans[it.k];
+  if(v===undefined||(Array.isArray(v)?!v.length:String(v).trim()===''))return false;
+  if(it.n===20)return /\S+@\S+\.\S+/.test(v);
+  if(it.n===19)return String(v).replace(/\D/g,'').length>=7;
+  return true;
+};
 const has=it=>{const v=ans[it.k];return Array.isArray(v)?v.length>0:v!==undefined&&String(v).trim()!==''};
+
 function go(k){if(document.activeElement)document.activeElement.blur();cur=k;render();scrollTo(0,0)}
 function step(d){const s=seq(),i=s.indexOf(cur);if(s[i+d])go(s[i+d])}
-const say=t=>{try{speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(t);u.lang='es-CO';u.rate=.9;speechSynthesis.speak(u)}catch(e){}};
 
-const PIN={8:'COLOMBIA',9:'COLOMBIA',13:'ANTIOQUIA',14:'MEDELLÍN'}; // opción que aparece de primera
-function optsHtml(it,f=''){const v=ans[it.k],multi=it.tipo==='checkbox',fn=norm(f);
- const pin=PIN[it.n],h=it.op.map((o,i)=>[o,i]).filter(([o])=>norm(o).includes(fn)).sort((x,y)=>(y[0]===pin)-(x[0]===pin)).map(([o,i])=>{const sel=multi?(v||[]).includes(o):v===o;
-  return `<button class="opt${sel?' sel':''}" data-a="opt" data-i="${i}" role="${multi?'checkbox':'radio'}" aria-checked="${sel}"><span class="mark ${multi?'sq':'ci'}">✓</span><span>${esc(o)}</span></button>`}).join('');
- return h||'<p class="hint">No encontramos resultados. Pruebe con otra palabra.</p>'}
+const PIN={8:'COLOMBIA',9:'COLOMBIA',13:'ANTIOQUIA',14:'MEDELLÍN'};
+function optsHtml(it,f=''){
+  const v=ans[it.k],multi=it.tipo==='checkbox',fn=norm(f);
+  const pin=PIN[it.n],h=it.op.map((o,i)=>[o,i]).filter(([o])=>norm(o).includes(fn)).sort((x,y)=>(y[0]===pin)-(x[0]===pin)).map(([o,i])=>{
+    const sel=multi?(v||[]).includes(o):v===o;
+    return `<button class="opt${sel?' sel':''}" data-a="opt" data-i="${i}" role="${multi?'checkbox':'radio'}" aria-checked="${sel}"><span class="mark ${multi?'sq':'ci'}">✓</span><span>${esc(o)}</span></button>`;
+  }).join('');
+  return h||'<p class="hint">No encontramos resultados. Pruebe con otra palabra.</p>';
+}
+
 const MES=['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'], dparts={};
 const dsel=(id,ph,arr,c)=>`<select class="inp" data-d="${id}" aria-label="${ph}"><option value="">${ph}</option>${arr.map(([v,l])=>`<option value="${v}"${v===c?' selected':''}>${l}</option>`).join('')}</select>`;
-function dateView(it){const [y='',m='',d='']=(ans[it.k]||'').split('-'),p=dparts[it.k]=dparts[it.k]||{y,m,d},Y=new Date().getFullYear();
- return `<div class="dates">${dsel('d','Día',Array.from({length:31},(_,i)=>[String(i+1).padStart(2,'0'),i+1]),p.d)}${dsel('m','Mes',MES.map((l,i)=>[String(i+1).padStart(2,'0'),l]),p.m)}${dsel('y','Año',Array.from({length:81},(_,i)=>[String(Y-i),Y-i]),p.y)}</div>`}
+function dateView(it){
+  const [y='',m='',d='']=(ans[it.k]||'').split('-'),p=dparts[it.k]=dparts[it.k]||{y,m,d},Y=new Date().getFullYear();
+  return `<div class="dates">${dsel('d','Día',Array.from({length:31},(_,i)=>[String(i+1).padStart(2,'0'),i+1]),p.d)}${dsel('m','Mes',MES.map((l,i)=>[String(i+1).padStart(2,'0'),l]),p.m)}${dsel('y','Año',Array.from({length:81},(_,i)=>[String(Y-i),Y-i]),p.y)}</div>`;
+}
 
-function qView(it){const v=ans[it.k],n=it.sec;
- const hint={checkbox:'Marque todas las respuestas que correspondan. Cuando termine, toque “Siguiente”.',select_unico:'Toque su respuesta y luego “Siguiente”.',radio:'Toque su respuesta y luego “Siguiente”.',texto:'Escriba su respuesta.',numero:'Use los botones + y − o escriba el número.',fecha:'Elija el día, el mes y el año.'}[it.tipo];
- let h=`<span class="chip">${n?'Paso '+n+' de 13 · '+esc(secName(n)):'Identificación y soporte legal'}</span><h1 class="q">${esc(it.t)}</h1><button class="btn say" data-a="say">🔊 Escuchar la pregunta</button><p class="hint">${hint}</p>`;
- if(it.op&&it.op.length){if(it.op.length>12)h+=`<input class="inp search" id="sr" enterkeyhint="search" placeholder="🔍 Escriba aquí para buscar…" autocomplete="off">`;
-  h+=`<div id="opts" class="opts ${it.op.length>8?'col':'grid'}">${optsHtml(it)}</div>`}
- else if(it.tipo==='numero')h+=`<div class="num"><button class="pill" data-a="dec" aria-label="Menos">−</button><input class="inp" id="in" inputmode="numeric" value="${esc(v??'')}"><button class="pill" data-a="inc" aria-label="Más">+</button></div>`;
- else if(it.tipo==='fecha')h+=dateView(it);
- else h+=`<input class="inp" id="in" enterkeyhint="done" type="${it.n===20?'email':'text'}" ${it.n===19?'inputmode="tel"':''} value="${esc(v??'')}" autocomplete="off">`;
- return h}
+function docView(d){
+  const st=ans[d.k]||{};
+  const files=docFiles[d.k]||{};
+  const slots=docSlots(d);
+  let h=`<span class="chip">Documentos requeridos · ${DOCS.indexOf(d)+1} de ${DOCS.length}</span>`;
+  h+=`<h1 class="q">${esc(d.t)}</h1>`;
+  h+=`<div class="rule-box">${esc(d.rule)}</div>`;
+  h+=`<p class="hint">${esc(d.sub)}</p>`;
 
-function foot(){const it=by[cur],f=$('#foot');if(!f)return;const ok=valid(it);
- f.innerHTML=(ok?'':'<p class="need">Responda para poder continuar</p>')+'<div class="row"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="next"'+(ok?'':' disabled')+'>Siguiente →</button></div>'}
+  if(d.modes){
+    h+=`<div class="opts grid">`;
+    d.modes.forEach((m,idx)=>{
+      const sel=st.mode===m;
+      h+=`<button class="opt${sel?' sel':''}" data-a="dmode" data-i="${idx}" role="radio" aria-checked="${sel}"><span class="mark ci">✓</span><span>${esc(m)}</span></button>`;
+    });
+    h+=`</div>`;
+  }
+
+  if(slots.length){
+    h+=`<div class="slots">`;
+    slots.forEach(sl=>{
+      const f=files[sl.id];
+      h+=`<div class="slot${f?' ok':''}">`;
+      h+=`<div class="slot-hd"><span class="slot-t">${esc(sl.label)}</span><span class="badge">${f?'✓ Escaneado':(sl.opt?'Opcional':'Pendiente')}</span></div>`;
+      if(!f){
+        h+=`<div class="cam-row">
+          <button type="button" class="cam-btn" data-a="pick" data-slot="${sl.id}" data-cam="1">📷 Tomar foto con cámara</button>
+          <button type="button" class="cam-btn alt" data-a="pick" data-slot="${sl.id}" data-cam="0">📄 Subir foto o PDF</button>
+        </div>`;
+      }else{
+        h+=`<div class="prev">`;
+        if(f.mime.startsWith('image/'))h+=`<img src="${f.dataUrl}" alt="${esc(sl.label)}">`;
+        else h+=`<div class="pdf-box">📑 Archivo PDF cargado: ${esc(f.name)}</div>`;
+        h+=`<button type="button" class="del-btn" data-a="deldoc" data-slot="${sl.id}">🗑️ Borrar y volver a escanear</button></div>`;
+      }
+      h+=`</div>`;
+    });
+    h+=`</div>`;
+  }
+
+  if(d.verifyText && slots.length){
+    const chk=!!st.verified;
+    h+=`<div class="chk-card"><button class="opt${chk?' sel':''}" data-a="dver" role="checkbox" aria-checked="${chk}"><span class="mark sq">✓</span><span>${esc(d.verifyText)}</span></button></div>`;
+  }
+
+  h+=`<input type="file" id="camIn" accept="image/*" capture="environment" style="display:none">`;
+  h+=`<input type="file" id="fileIn" accept="image/*,application/pdf" style="display:none">`;
+  return h;
+}
+
+function qView(it){
+  const v=ans[it.k],n=it.sec;
+  const hint={checkbox:'Marque todas las respuestas que correspondan. Cuando termine, toque “Siguiente”.',select_unico:'Toque su respuesta y luego “Siguiente”.',radio:'Toque su respuesta y luego “Siguiente”.',texto:'Escriba su respuesta.',numero:'Use los botones + y − o escriba el número.',fecha:'Elija el día, el mes y el año.'}[it.tipo];
+  let h=`<span class="chip">${n?'Paso '+n+' de 13 · '+esc(secName(n)):'Identificación y soporte legal'}</span><h1 class="q">${esc(it.t)}</h1><p class="hint">${hint}</p>`;
+  if(it.op&&it.op.length){
+    if(it.op.length>12)h+=`<input class="inp search" id="sr" enterkeyhint="search" placeholder="🔍 Escriba aquí para buscar…" autocomplete="off">`;
+    h+=`<div id="opts" class="opts ${it.op.length>8?'col':'grid'}">${optsHtml(it)}</div>`;
+  }
+  else if(it.tipo==='numero')h+=`<div class="num"><button class="pill" data-a="dec" aria-label="Menos">−</button><input class="inp" id="in" inputmode="numeric" value="${esc(v??'')}"><button class="pill" data-a="inc" aria-label="Más">+</button></div>`;
+  else if(it.tipo==='fecha')h+=dateView(it);
+  else h+=`<input class="inp" id="in" enterkeyhint="done" type="${it.n===20?'email':'text'}" ${it.n===19?'inputmode="tel"':''} value="${esc(v??'')}" autocomplete="off">`;
+  return h;
+}
+
+function foot(){
+  const it=by[cur]||docBy[cur],f=$('#foot');if(!f||!it)return;
+  const ok=valid(it);
+  const msg=docBy[cur]?'Complete el escaneo y la verificación para continuar':'Responda para poder continuar';
+  f.innerHTML=(ok?'':`<p class="need">${msg}</p>`)+'<div class="row"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="next"'+(ok?'':' disabled')+'>Siguiente →</button></div>';
+}
 
 const iso2es=s=>s?s.split('-').reverse().join('/'):'';
 const show=it=>{const v=ans[it.k];return Array.isArray(v)?v.join(', '):it.tipo==='fecha'?iso2es(v):(v??'')};
-function render(){const s=seq(),i=s.indexOf(cur),pct=Math.round(i/(s.length-1)*100);let m='',foot_='';
- const hd=`<header><div class="bar" role="progressbar" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div><button class="pill" data-a="zoom">Letra A+</button></header>`;
- if(cur==='welcome')m=`<div class="center"><p class="step">🤝</p><h1 class="big">Registro de cuidadores</h1><p class="hint">Le haremos unas preguntas, una por una.<br>No hay respuestas buenas ni malas. Tómese el tiempo que necesite.</p><button class="btn next" data-a="next" style="margin:20px 0 0">¡Empezar!</button>${loadDraft()?'<button class="btn back" data-a="resume" style="margin-top:6px">Continuar donde quedé</button>':''}${pend().length?`<p class="warn">Hay ${pend().length} registro(s) guardado(s) esperando internet.</p>`:''}</div>`;
- else if(/^i\d+$/.test(cur)){const n=+cur.slice(1);m=`<div class="center"><p class="step">${n===0?'🪪':n+' / 13'}</p><h1 class="big">${esc(secName(n))}</h1><p class="hint">${n===0?'Primero, unos datos para identificarte.':'Paso '+n+' de 13'}</p><div style="display:flex;gap:12px;margin-top:20px"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="next" style="margin:0">Continuar →</button></div></div>`}
- else if(cur==='review'){const qs=ALL.filter(x=>x.k[0]==='c'||vis(x)).filter(has);m=`<div class="center"><p class="step">🎉</p><h1 class="big">¡Muy bien, terminamos!</h1><p class="hint">Respondió ${qs.length} preguntas.</p><details><summary>Ver mis respuestas</summary>${qs.map(x=>`<p><b>${esc(x.t)}</b><br>${esc(show(x))}</p>`).join('')}</details><div style="display:flex;gap:12px"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="send" style="margin:0" ${sending?'disabled':''}>${sending?'Enviando…':'Enviar respuestas'}</button></div></div>`}
- else if(cur==='done'||cur==='queued'){m=`<div class="center"><p class="step">${cur==='done'?'✅':'📥'}</p><h1 class="big">${cur==='done'?'¡Gracias! Respuestas enviadas':'Guardado en la tablet'}</h1><p class="hint">${cur==='done'?'Ya puede entregar la tableta.':D.cfg.url.startsWith('PEGA')?'Falta configurar la URL de Google Apps Script (modo prueba).':'No hubo internet. Se enviará solo cuando vuelva la conexión.'}</p><button class="btn next" data-a="reset" style="margin:20px 0 0">Nuevo registro</button></div>`}
- else{m=qView(by[cur]);foot_=`<footer id="foot"></footer>`}
- $('#app').innerHTML=hd+`<main>${m}</main>`+foot_;foot();saveDraft();
- const sr=$('#sr');if(sr)sr.oninput=()=>$('#opts').innerHTML=optsHtml(by[cur],sr.value)}
 
-document.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const a=b.dataset.a,it=by[cur];
- if(a==='next')step(1);else if(a==='back')step(-1);else if(a==='say')say(it.t);
- else if(a==='zoom'){zoom=(zoom+1)%3;document.documentElement.style.fontSize=[100,125,150][zoom]+'%'}
- else if(a==='reset'){ans={};for(const k in dparts)delete dparts[k];clearDraft();sending=false;go('welcome')}
- else if(a==='resume'){const d=loadDraft();if(d){ans=d.ans;go(seq().includes(d.cur)?d.cur:'welcome')}}
- else if(a==='send')submit();
- else if(a==='inc'||a==='dec'){ans[it.k]=Math.max(0,(+ans[it.k]||0)+(a==='inc'?1:-1));$('#in').value=ans[it.k];foot()}
- else if(a==='opt'){const o=it.op[+b.dataset.i];
-  if(it.tipo==='checkbox'){let v=ans[it.k]||[];if(v.includes(o))v=v.filter(x=>x!==o);else v=NIN.test(o)?[o]:[...v.filter(x=>!NIN.test(x)),o];ans[it.k]=v.length?v:undefined;if(!v.length)delete ans[it.k]}
-  else ans[it.k]=o;
-  clean();const sr=$('#sr');$('#opts').innerHTML=optsHtml(it,sr?sr.value:'');foot()}});
+function docSummaryText(d){
+  const st=ans[d.k]||{};
+  const files=docFiles[d.k]||{};
+  const nFiles=Object.keys(files).length;
+  const parts=[];
+  if(st.mode)parts.push(st.mode);
+  parts.push(`${nFiles} archivo(s) escaneado(s)`);
+  if(st.verified)parts.push('Verificado ✓');
+  return parts.join(' · ');
+}
+
+function render(){
+  const s=seq(),i=s.indexOf(cur),pct=Math.max(0,Math.round(i/(s.length-1)*100));let m='',foot_='';
+  const hd=`<header><div class="bar" role="progressbar" aria-valuenow="${pct}"><i style="width:${pct}%"></i></div><button class="pill" data-a="zoom">Letra A+</button></header>`;
+  if(cur==='welcome'){
+    m=`<div class="center"><p class="step">🤝</p><h1 class="big">Registro de cuidadores</h1><p class="hint">Le haremos unas preguntas y escanearemos los documentos requeridos.<br>Tómese el tiempo que necesite.</p><button class="btn next" data-a="next" style="margin:20px 0 0">¡Empezar!</button>${hasDraft?'<button class="btn back" data-a="resume" style="margin-top:6px">Continuar donde quedé</button>':''}${pendList.length?`<p class="warn">Hay ${pendList.length} registro(s) guardado(s) esperando internet.</p>`:''}</div>`;
+  }
+  else if(cur==='idoc'){
+    m=`<div class="center"><p class="step">📸</p><h1 class="big">Escaneo de documentos</h1><p class="hint">A continuación tomaremos foto o subiremos los 5 documentos soporte (cédulas, certificado de discapacidad, servicios/Sisbén en Medellín y extrajuicio/poder).</p><div style="display:flex;gap:12px;margin-top:20px"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="next" style="margin:0">Continuar →</button></div></div>`;
+  }
+  else if(/^i\d+$/.test(cur)){
+    const n=+cur.slice(1);
+    m=`<div class="center"><p class="step">${n===0?'🪪':n+' / 13'}</p><h1 class="big">${esc(secName(n))}</h1><p class="hint">${n===0?'Primero, unos datos para identificarte.':'Paso '+n+' de 13'}</p><div style="display:flex;gap:12px;margin-top:20px"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="next" style="margin:0">Continuar →</button></div></div>`;
+  }
+  else if(cur==='review'){
+    const qs=ALL.filter(x=>x.k[0]==='c'||vis(x)).filter(has);
+    const docsHtml=DOCS.map(d=>`<p><b>${esc(d.t)}</b><br>${esc(docSummaryText(d))}</p>`).join('');
+    m=`<div class="center"><p class="step">🎉</p><h1 class="big">¡Muy bien, terminamos!</h1><p class="hint">5 documentos escaneados y ${qs.length} respuestas listas.</p><details open><summary>Documentos escaneados (5)</summary>${docsHtml}</details><details><summary>Ver respuestas del formulario (${qs.length})</summary>${qs.map(x=>`<p><b>${esc(x.t)}</b><br>${esc(show(x))}</p>`).join('')}</details><div style="display:flex;gap:12px"><button class="btn back" data-a="back">← Atrás</button><button class="btn next" data-a="send" style="margin:0" ${sending?'disabled':''}>${sending?'Enviando…':'Enviar registro'}</button></div></div>`;
+  }
+  else if(cur==='done'||cur==='queued'){
+    m=`<div class="center"><p class="step">${cur==='done'?'✅':'📥'}</p><h1 class="big">${cur==='done'?'¡Gracias! Registro y documentos enviados':'Guardado en la tablet'}</h1><p class="hint">${cur==='done'?'Ya puede entregar la tableta.':D.cfg.url.startsWith('PEGA')?'Falta configurar la URL de Google Apps Script (modo prueba).':'No hubo internet. Se enviará automáticamente cuando vuelva la conexión.'}</p><button class="btn next" data-a="reset" style="margin:20px 0 0">Nuevo registro</button></div>`;
+  }
+  else if(docBy[cur]){
+    m=docView(docBy[cur]);
+    foot_=`<footer id="foot"></footer>`;
+  }
+  else{
+    m=qView(by[cur]);
+    foot_=`<footer id="foot"></footer>`;
+  }
+  $('#app').innerHTML=hd+`<main>${m}</main>`+foot_;
+  foot();
+  saveDraft();
+  const sr=$('#sr');if(sr)sr.oninput=()=>$('#opts').innerHTML=optsHtml(by[cur],sr.value);
+  bindFileInputs();
+}
+
+function processFile(file){
+  return new Promise((resolve,reject)=>{
+    if(file.type==='application/pdf'){
+      if(file.size>6*1024*1024){alert('El PDF pesa más de 6 MB. Por favor suba uno más liviano o tome fotos.');return reject();}
+      const r=new FileReader();
+      r.onload=()=>resolve({name:file.name,mime:'application/pdf',dataUrl:r.result});
+      r.onerror=reject;
+      r.readAsDataURL(file);
+      return;
+    }
+    const r=new FileReader();
+    r.onload=ev=>{
+      const img=new Image();
+      img.onload=()=>{
+        const MAX=1400;
+        let w=img.width,h=img.height;
+        if(w>MAX||h>MAX){
+          if(w>h){h=Math.round(h*MAX/w);w=MAX;}
+          else{w=Math.round(w*MAX/h);h=MAX;}
+        }
+        const cv=document.createElement('canvas');
+        cv.width=w;cv.height=h;
+        const ctx=cv.getContext('2d');
+        ctx.fillStyle='#ffffff';
+        ctx.fillRect(0,0,w,h);
+        ctx.drawImage(img,0,0,w,h);
+        const dataUrl=cv.toDataURL('image/jpeg',0.78);
+        resolve({name:(file.name||'foto').replace(/\.[^.]+$/,'')+'.jpg',mime:'image/jpeg',dataUrl});
+      };
+      img.onerror=reject;
+      img.src=ev.target.result;
+    };
+    r.onerror=reject;
+    r.readAsDataURL(file);
+  });
+}
+
+let activeSlot=null;
+function bindFileInputs(){
+  const handler=async e=>{
+    const f=e.target.files&&e.target.files[0];
+    if(!f||!activeSlot||!docBy[cur])return;
+    try{
+      const processed=await processFile(f);
+      docFiles[cur]=docFiles[cur]||{};
+      docFiles[cur][activeSlot]=processed;
+      render();
+    }catch(err){console.error(err);}
+    e.target.value='';
+  };
+  const cIn=$('#camIn'),fIn=$('#fileIn');
+  if(cIn)cIn.onchange=handler;
+  if(fIn)fIn.onchange=handler;
+}
+
+document.addEventListener('click',e=>{
+  const b=e.target.closest('[data-a]');if(!b)return;
+  const a=b.dataset.a,it=by[cur],d=docBy[cur];
+  if(a==='next')step(1);
+  else if(a==='back')step(-1);
+  else if(a==='zoom'){zoom=(zoom+1)%3;document.documentElement.style.fontSize=[100,125,150][zoom]+'%'}
+  else if(a==='reset'){ans={};docFiles={};for(const k in dparts)delete dparts[k];clearDraft();sending=false;go('welcome')}
+  else if(a==='resume'){resumeDraft()}
+  else if(a==='send')submit();
+  else if(a==='inc'||a==='dec'){ans[it.k]=Math.max(0,(+ans[it.k]||0)+(a==='inc'?1:-1));$('#in').value=ans[it.k];foot()}
+  else if(a==='opt'){
+    const o=it.op[+b.dataset.i];
+    if(it.tipo==='checkbox'){let v=ans[it.k]||[];if(v.includes(o))v=v.filter(x=>x!==o);else v=NIN.test(o)?[o]:[...v.filter(x=>!NIN.test(x)),o];ans[it.k]=v.length?v:undefined;if(!v.length)delete ans[it.k]}
+    else ans[it.k]=o;
+    clean();const sr=$('#sr');$('#opts').innerHTML=optsHtml(it,sr?sr.value:'');foot();
+  }
+  else if(a==='dmode'&&d){
+    const m=d.modes[+b.dataset.i];
+    ans[d.k]=ans[d.k]||{};
+    if(ans[d.k].mode!==m){ans[d.k].mode=m;docFiles[d.k]={};}
+    render();
+  }
+  else if(a==='pick'&&d){
+    activeSlot=b.dataset.slot;
+    const inp=b.dataset.cam==='1'?$('#camIn'):$('#fileIn');
+    if(inp)inp.click();
+  }
+  else if(a==='deldoc'&&d){
+    if(docFiles[d.k])delete docFiles[d.k][b.dataset.slot];
+    render();
+  }
+  else if(a==='dver'&&d){
+    ans[d.k]=ans[d.k]||{};
+    ans[d.k].verified=!ans[d.k].verified;
+    render();
+  }
+});
+
 document.addEventListener('input',e=>{if(e.target.id!=='in')return;const it=by[cur];ans[it.k]=e.target.value;if(it.tipo==='numero'){ans[it.k]=e.target.value.replace(/\D/g,'');e.target.value=ans[it.k]}foot()});
-document.addEventListener('change',e=>{const k=e.target.dataset.d;if(!k)return;const it=by[cur],p=dparts[cur];p[k]=e.target.value;const{y,m,d}=p;
- const dt=new Date(+y,+m-1,+d);if(y&&m&&d&&dt.getMonth()===+m-1&&dt<=new Date())ans[cur]=`${y}-${m}-${d}`;else delete ans[cur];foot()});
+document.addEventListener('change',e=>{const k=e.target.dataset.d;if(!k)return;const it=by[cur],p=dparts[cur];p[k]=e.target.value;const{y,m,d}=p;const dt=new Date(+y,+m-1,+d);if(y&&m&&d&&dt.getMonth()===+m-1&&dt<=new Date())ans[cur]=`${y}-${m}-${d}`;else delete ans[cur];foot()});
 document.addEventListener('keydown',e=>{if(e.key!=='Enter'||!/^(in|sr)$/.test(e.target.id))return;e.preventDefault();if(e.target.id==='in'&&valid(by[cur]))step(1);else e.target.blur()});
-// Teclado en celular: mantener visible lo que se escribe
+
 const isTxt=el=>el&&el.matches&&el.matches('input.inp');
 const keep=()=>{const el=document.activeElement;if(isTxt(el))el.scrollIntoView({block:'center',behavior:'smooth'})};
 document.addEventListener('focusin',e=>{if(isTxt(e.target)){document.body.classList.add('typing');setTimeout(keep,350)}});
 document.addEventListener('focusout',()=>setTimeout(()=>{if(!isTxt(document.activeElement))document.body.classList.remove('typing')},150));
 if(window.visualViewport)visualViewport.addEventListener('resize',()=>setTimeout(keep,100));
 
-// ---- Envío a Google Sheets (con cola offline) ----
-const saveDraft=()=>{try{if(!['welcome','done','queued'].includes(cur))localStorage.setItem('sispro_draft',JSON.stringify({ans,cur}))}catch(e){}};
-const loadDraft=()=>{try{return JSON.parse(localStorage.getItem('sispro_draft'))}catch(e){return null}};
-const clearDraft=()=>{try{localStorage.removeItem('sispro_draft')}catch(e){}};
-const pend=()=>{try{return JSON.parse(localStorage.getItem('sispro_pend')||'[]')}catch(e){return[]}};
-const savePend=a=>{try{localStorage.setItem('sispro_pend',JSON.stringify(a))}catch(e){}};
-async function post(rec){if(D.cfg.url.startsWith('PEGA'))return false;try{const r=await fetch(D.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});return !!(await r.json()).ok}catch(e){return false}}
-async function flush(){const left=[];for(const r of pend())if(!await post(r))left.push(r);savePend(left)}
-async function submit(){sending=true;render();const fila={};
- ALL.forEach(x=>{fila[x.col]=(x.k[0]==='c'||vis(x))?show(x):''});
- const rec={id:Date.now()+'-'+Math.random().toString(36).slice(2,8),hoja:D.cfg.hoja,fila};
- const ok=await post(rec);if(!ok)savePend([...pend(),rec]);clearDraft();sending=false;go(ok?'done':'queued')}
-addEventListener('online',flush);flush();render();
+let hasDraft=false;
+function openDB(){
+  return new Promise((res,rej)=>{
+    const req=indexedDB.open('sispro_cuidadores_db',1);
+    req.onupgradeneeded=e=>e.target.result.createObjectStore('kv');
+    req.onsuccess=()=>res(req.result);
+    req.onerror=()=>rej(req.error);
+  });
+}
+async function dbGet(k){try{const db=await openDB();return await new Promise((res,rej)=>{const r=db.transaction('kv').objectStore('kv').get(k);r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error);});}catch(e){return null;}}
+async function dbSet(k,v){try{const db=await openDB();await new Promise((res,rej)=>{const r=db.transaction('kv','readwrite').objectStore('kv').put(v,k);r.onsuccess=()=>res();r.onerror=()=>rej(r.error);});}catch(e){}}
+
+async function saveDraft(){
+  if(['welcome','done','queued'].includes(cur))return;
+  await dbSet('draft',{ans,docFiles,cur});
+  hasDraft=true;
+}
+async function clearDraft(){await dbSet('draft',null);hasDraft=false;}
+async function resumeDraft(){
+  const d=await dbGet('draft');
+  if(d){ans=d.ans||{};docFiles=d.docFiles||{};go(seq().includes(d.cur)?d.cur:'welcome');}
+}
+
+async function post(rec){
+  if(D.cfg.url.startsWith('PEGA'))return false;
+  try{
+    const r=await fetch(D.cfg.url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(rec)});
+    return !!(await r.json()).ok;
+  }catch(e){return false;}
+}
+
+async function flush(){
+  const list=(await dbGet('pend'))||[];
+  if(!list.length){pendList=[];return;}
+  const left=[];
+  for(const r of list)if(!await post(r))left.push(r);
+  await dbSet('pend',left);
+  pendList=left;
+  if(cur==='welcome')render();
+}
+
+async function submit(){
+  sending=true;render();
+  const fila={};
+  ALL.forEach(x=>{fila[x.col]=(x.k[0]==='c'||vis(x))?show(x):''});
+  const docsPayload=[];
+  DOCS.forEach(d=>{
+    const st=ans[d.k]||{};
+    const files=docFiles[d.k]||{};
+    fila[d.col]=docSummaryText(d);
+    Object.entries(files).forEach(([slotId,f])=>{
+      const ext=f.mime==='application/pdf'?'pdf':'jpg';
+      docsPayload.push({
+        col:d.col,
+        nombreArchivo:`${d.k}_${slotId}.${ext}`,
+        mimeType:f.mime,
+        base64:f.dataUrl.split(',')[1]||''
+      });
+    });
+  });
+  const rec={
+    id:Date.now()+'-'+Math.random().toString(36).slice(2,8),
+    hoja:D.cfg.hoja,
+    fila,
+    docs:docsPayload
+  };
+  const ok=await post(rec);
+  if(!ok){
+    const list=(await dbGet('pend'))||[];
+    list.push(rec);
+    await dbSet('pend',list);
+    pendList=list;
+  }
+  await clearDraft();
+  sending=false;
+  go(ok?'done':'queued');
+}
+
+(async()=>{
+  const d=await dbGet('draft');
+  hasDraft=!!d;
+  pendList=(await dbGet('pend'))||[];
+  render();
+  flush();
+})();
+addEventListener('online',flush);
 </script></body></html>
